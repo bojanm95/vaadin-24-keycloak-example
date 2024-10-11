@@ -1,6 +1,6 @@
 # vaadin-24-keycloak-example
 
-Example of Vaadin 24 and Keycloak integration
+Demo of Vaadin 24 and Keycloak integration
 
 ## Getting started
 
