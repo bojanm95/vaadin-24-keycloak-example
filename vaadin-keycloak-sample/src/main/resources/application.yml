@@ -1,0 +1,21 @@
+server:
+  port: ${PORT:8085}
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            clientId: sample-client
+            clientSecret: eYKzKx1vLWras15XOt4PUES5n6q3kYwU
+            authorizationGrantType: authorization_code
+            scope: openid, profile, email
+            redirect-uri: "http://localhost:8085/login/oauth2/code/{registrationId}" #Redirect URI with base url of our application + login/oauth2/code/{registrationId}
+        provider:
+          keycloak:
+            issuerUri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/sample
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
