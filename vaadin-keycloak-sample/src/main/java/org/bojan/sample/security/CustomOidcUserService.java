@@ -14,12 +14,16 @@ public class CustomOidcUserService extends OidcUserService {
     public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException {
         OidcUser user = super.loadUser(userRequest);
 
-        String username = user.getPreferredUsername();
+        String username = nullToEmpty(user.getPreferredUsername());
         OidcIdToken token = user.getIdToken();
-        String id = user.getAttribute("user_id");
-        String sessionId = user.getAttribute("sid");
+        String id = nullToEmpty(user.getAttribute("user_id"));
+        String sessionId = nullToEmpty(user.getAttribute("sid"));
 
         CustomOidcUserPrincipal userPrincipal = new CustomOidcUserPrincipal(id, username, token, user.getAttributes(), user.getUserInfo(), sessionId);
         return userPrincipal;
+    }
+
+    private String nullToEmpty(String value) {
+        return value == null ? "" : value;
     }
 }
